@@ -337,7 +337,7 @@ RUST_INCLUDES = -I $(srcdir)/rust \
 CFLAGS-rust/rust-lang.o += $(RUST_INCLUDES)
 CFLAGS-rust/rust-lex.o += $(RUST_INCLUDES)
 CFLAGS-rust/rust-parse.o += $(RUST_INCLUDES)
-CFLAGS-rust/rust-session-manager.o += $(RUST_INCLUDES) $(RUST_CXXFLAGS)
+CFLAGS-rust/rust-session-manager.o += $(RUST_INCLUDES)
 
 RUST_CXXFLAGS = $(CXXFLAGS)
 
