@@ -82,6 +82,18 @@ public:
     if (resolved->get_kind () == TyTy::TypeKind::ERROR)
       return resolved;
 
+    // check bounds if required
+    {
+      if (get_base ()->num_specified_bounds () > 0)
+	{
+	  rust_debug ("1234");
+	}
+      else if (other->num_specified_bounds () > 0)
+	{
+	  rust_debug ("5678");
+	}
+    }
+
     resolved->append_reference (get_base ()->get_ref ());
     resolved->append_reference (other->get_ref ());
     for (auto ref : get_base ()->get_combined_refs ())

@@ -134,10 +134,12 @@ TypeCheckCallExpr::visit (FnType &type)
 		: fn_param_pattern->get_locus ();
 
 	  HirId coercion_side_id = argument->get_mappings ().get_hirid ();
+	  rust_debug_loc (param_locus, "argument checking 1");
 	  auto resolved_argument_type = Resolver::TypeCheckBase::coercion_site (
 	    coercion_side_id, TyWithLocation (param_ty, param_locus),
 	    TyWithLocation (argument_expr_tyty, arg_locus),
 	    argument->get_locus ());
+	  rust_debug_loc (param_locus, "argument checking 2");
 	  if (resolved_argument_type->get_kind () == TyTy::TypeKind::ERROR)
 	    {
 	      rust_error_at (argument->get_locus (),

@@ -676,7 +676,8 @@ SubstitutionRef::infer_substitions (Location locus)
     {
       if (p.needs_substitution ())
 	{
-	  const std::string &symbol = p.get_param_ty ()->get_symbol ();
+	  const ParamType &param = *p.get_param_ty ();
+	  const std::string &symbol = param.get_symbol ();
 	  auto it = argument_mappings.find (symbol);
 	  bool have_mapping = it != argument_mappings.end ();
 
@@ -687,6 +688,11 @@ SubstitutionRef::infer_substitions (Location locus)
 	  else
 	    {
 	      TyVar infer_var = TyVar::get_implicit_infer_var (locus);
+
+	      // add any possible bounds to the inference variable
+	      infer_var.get_tyty ()->inherit_bounds (param);
+	      infer_var.get_tyty ()->debug ();
+
 	      args.push_back (SubstitutionArg (&p, infer_var.get_tyty ()));
 	      argument_mappings[symbol] = infer_var.get_tyty ();
 	    }

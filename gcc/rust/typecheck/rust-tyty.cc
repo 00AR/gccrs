@@ -503,11 +503,11 @@ InferType::as_string () const
   switch (infer_kind)
     {
     case GENERAL:
-      return "T?";
+      return "T?:" + bounds_as_string ();
     case INTEGRAL:
-      return "<integer>";
+      return "<integer>:" + bounds_as_string ();
     case FLOAT:
-      return "<float>";
+      return "<float>:" + bounds_as_string ();
     }
   return "<infer::error>";
 }
@@ -544,6 +544,7 @@ InferType::clone () const
   InferType *clone
     = new InferType (mappings->get_next_hir_id (), get_infer_kind (),
 		     get_ident ().locus, get_combined_refs ());
+  clone->inherit_bounds (*this);
 
   context->insert_type (Analysis::NodeMapping (mappings->get_current_crate (),
 					       UNKNOWN_NODEID,
